@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+:root{
+  --primary-text:#000;
+  --error-text:red
+
+}
+
 ::-webkit-scrollbar{
   display: none;
+}
+
+input{
+
 }

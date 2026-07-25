@@ -12,10 +12,13 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",
     "@tailwindcss/vite": "^4.3.3",
+    "lucide-react": "^1.26.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.83.0",
+    "react-redux": "^9.3.0",
     "react-router": "^8.3.0",
+    "react-toastify": "^11.1.0",
     "tailwindcss": "^4.3.3",
     "toastify-js": "^1.12.0"
   },
