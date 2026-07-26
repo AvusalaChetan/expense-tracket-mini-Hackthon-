@@ -9,11 +9,23 @@
   --button-hover: rgba(255, 255, 255, 0.2);
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
+ 
 
 button {
   cursor: pointer;
+}
+
+.scrip-Con{
+  height: 400px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+ 
 }
 

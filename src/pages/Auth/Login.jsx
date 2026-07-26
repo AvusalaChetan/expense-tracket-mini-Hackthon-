@@ -32,7 +32,7 @@ console.log(currentUser)
       toast.error("username or password is worng");
       return;
     }
-    dispatch((login(data)))
+    dispatch(login(existUser))
     toast.success("login successfully");
     navigate("/dashboard");
   };
