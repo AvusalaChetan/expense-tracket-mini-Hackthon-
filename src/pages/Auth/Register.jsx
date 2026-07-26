@@ -1,13 +1,12 @@
-import {Eye, EyeOff} from "lucide-react";
-import {useState} from "react";
-import {useForm} from "react-hook-form";
-import {useDispatch, useSelector} from "react-redux";
+import { Eye, EyeOff } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import Error from "../../components/common/Error";
-import {registerUser, showPassword} from "../../features/AuthSlice";
-
-import {ToastContainer, toast} from "react-toastify";
+import { registerUser, showPassword } from "../../features/AuthSlice";
+import { NavLink, useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {NavLink, useNavigate} from "react-router";
+import { useEffect } from "react";
 
 const Register = () => {
   const {
@@ -22,17 +21,20 @@ const Register = () => {
   const users = useSelector((state) => state.Auth.users);
 
   const onSubmit = (data) => {
-    let userExist = users.find((u) => u.email === data.email);
+    let userExist = users.find((u) => u.email.toLowerCase() === data.email.toLowerCase());
     if (userExist) {
       toast.error("A user already exists with that email.");
       return;
     }
     dispatch(registerUser(data));
-    localStorage.setItem("users", JSON.stringify([...users, data]));
     localStorage.setItem("user_session", JSON.stringify(data));
     toast.success("account is created");
     navigate("/dashboard");
   };
+  
+  useEffect(() => {
+  localStorage.setItem("users", JSON.stringify(users));
+}, [users]);
 
   return (
     <div>

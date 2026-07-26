@@ -1,14 +1,17 @@
-import {Navigate, Route, Routes, useNavigate} from "react-router";
+import { lazy, Suspense } from "react";
+import { Navigate, Route, Routes } from "react-router";
 import AuthLayout from "../layout/AuthLayout";
-import MainLayout from "../layout/MainLayout";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Dashboard from "../pages/Dashboard";
+import Pagenotfound from "../pages/Pagenotfound";
 import Profile from "../pages/Profile";
+import TransactionForm from "../pages/TransactionForm";
 import ProtectedRoute from "./ProtectedRoute";
 
+const MainLayout = lazy(() => import("../layout/MainLayout"));
+
 const AppRouter = () => {
-  const navigate = useNavigate();
   return (
     <div>
       <Routes>
@@ -18,26 +21,22 @@ const AppRouter = () => {
         </Route>
 
         <Route path="/" element={<ProtectedRoute />}>
-          <Route path="/" element={<MainLayout />}>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={"loading...."}>
+                <MainLayout />
+              </Suspense>
+            }
+          >
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="transaction-from" element={<TransactionForm />} />
             <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
-        <Route
-          path="*"
-          element={
-            <p>
-              404
-              <button onClick={() => navigate("/auth/register")}>
-                go register page
-              </button>
-              <button onClick={() => navigate("/auth/login")}>
-                go login page
-              </button>
-            </p>
-          }
-        />
+
+        <Route path="*" element={<Pagenotfound />} />
       </Routes>
     </div>
   );

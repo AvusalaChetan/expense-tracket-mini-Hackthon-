@@ -1,10 +1,11 @@
 import {Eye, EyeOff} from "lucide-react";
 import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {showPassword} from "../../features/AuthSlice";
+import {login, showPassword} from "../../features/AuthSlice";
 import Error from "../../components/common/Error";
 import {ToastContainer, toast} from "react-toastify";
 import {NavLink, useNavigate} from "react-router";
+import { useEffect } from "react";
 
 const Login = () => {
   const {
@@ -18,9 +19,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const showPass = useSelector((state) => state.Auth.showPass);
   const users = useSelector((state) => state.Auth.users);
+  const currentUser = useSelector((state) => state.Auth.currentUser);
+console.log(currentUser)
 
   const onSubmit = (data) => {
-    console.log(data);
     const existUser = users.find((u) => u.email === data.email);
     if (!existUser) {
       toast.error("user not exist with that email");
@@ -30,10 +32,14 @@ const Login = () => {
       toast.error("username or password is worng");
       return;
     }
-    localStorage.setItem("user_session", JSON.stringify(data));
+    dispatch((login(data)))
     toast.success("login successfully");
     navigate("/dashboard");
   };
+  
+  useEffect(() => {
+    localStorage.setItem("user_session", JSON.stringify(currentUser));
+}, [currentUser]);
 
   return (
     <div>

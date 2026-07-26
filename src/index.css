@@ -1,15 +1,19 @@
 @import "tailwindcss";
 
-:root{
-  --primary-text:#000;
-  --error-text:red
-
+:root {
+  --primary-text: #000;
+  --error-text: red;
+  --sidebar-bg: rgba(255, 255, 255, 0.05);
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --button-bg: rgba(255, 255, 255, 0.1);
+  --button-hover: rgba(255, 255, 255, 0.2);
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
-input{
-
+button {
+  cursor: pointer;
 }
+
