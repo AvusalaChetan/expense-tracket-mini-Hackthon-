@@ -1,5 +1,6 @@
 import React from "react";
-import {Outlet} from "react-router";
+import { Outlet } from "react-router";
+import Footer from "../components/common/Footer";
 
 const AuthLayout = () => {
   return (
@@ -7,7 +8,7 @@ const AuthLayout = () => {
       <div className="h-[80%] p-4">
         <Outlet />
       </div>
-      <footer className=" ">footer</footer>
+      <Footer />
     </div>
   );
 };

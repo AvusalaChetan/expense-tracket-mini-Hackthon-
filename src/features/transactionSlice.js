@@ -7,11 +7,13 @@ const username = getUserName(user?.email) || ''
 const transactionState = {
   transactions:
     JSON.parse(localStorage.getItem(`transactions_${username}`)) ?? [],
+   editTransaction:{} 
 };
 
 const transactionSlice = createSlice({
   name: "allTransactions",
   initialState: transactionState,
+  
   reducers: {
     addTransaction: (state, action) => {
       state.transactions.push(action.payload);
@@ -19,6 +21,9 @@ const transactionSlice = createSlice({
     deleteTransaction:(state,action)=>{
     state.transactions =  state.transactions.filter((t) => t.id !== action.payload.id);
      localStorage.setItem(`transactions_${username}`,JSON.stringify(state.transactions))
+    },
+    editTransaction :(state,action)=>{
+      
     }
   },
 });

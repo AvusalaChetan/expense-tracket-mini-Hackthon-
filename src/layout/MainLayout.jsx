@@ -2,6 +2,7 @@ import {useState} from "react";
 import {Outlet} from "react-router";
 import {Menu, X} from "lucide-react";
 import Navbar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
 
 const MainLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,9 +36,7 @@ const MainLayout = () => {
         </main>
       </div>
 
-      <footer className="h-12 border-t flex items-center justify-center bg-white">
-        Footer
-      </footer>
+     <Footer/>
     </div>
   );
 };

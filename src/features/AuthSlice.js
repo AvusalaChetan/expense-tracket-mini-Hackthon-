@@ -19,7 +19,10 @@ export const AuthSlice = createSlice({
       state.currentUser = {...action.payload};
      },
 
-     logout: ()=>{},
+     logout: (state,action)=>{
+      state.currentUser = null
+      localStorage.removeItem('user_session')
+     },
 
      showPassword:(state,action)=>{
       console.log(action.payload)
