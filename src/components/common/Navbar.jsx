@@ -43,7 +43,7 @@ const Navbar = ({ isOpen, setIsOpen }) => {
               `flex items-center w-full  gap-3 rounded-lg px-4 py-3 transition-colors
               ${
                 isActive
-                  ? "bg-blue-500 text-white"
+                  ? "bg-slate-800 text-white"
                   : "text-gray-700 hover:bg-gray-100"
               }`
             }

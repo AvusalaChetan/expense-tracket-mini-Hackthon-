@@ -9,8 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import Error from "../components/common/Error";
 import {
   addTransaction,
-  updateTransaction,
   editTransaction,
+  updateTransaction,
 } from "../features/transactionSlice";
 import { getUserName } from "../helpers/getUserName";
 
@@ -74,6 +74,7 @@ const TransactionForm = () => {
       dispatch(editTransaction({}));
     };
   }, [dispatch]);
+  
   return (
     <>
       <ToastContainer />
