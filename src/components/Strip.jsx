@@ -1,10 +1,6 @@
-import {
-  IndianRupeeIcon,
-  PenBoxIcon,
-  Trash2
-} from "lucide-react";
+import { IndianRupeeIcon, PenBoxIcon, Trash2 } from "lucide-react";
 
-const Strip = ({ handleDelete, transaction}) => {
+const Strip = ({ handleDelete, transaction, handileEdit }) => {
   return (
     <div className="border rounded-xl p-5 w-full ">
       <div className="flex justify-between items-end relative">
@@ -24,7 +20,7 @@ const Strip = ({ handleDelete, transaction}) => {
             {transaction?.transactionType}
           </span>
           <div className="flex gap-4">
-            <button>
+            <button onClick={() => handileEdit(transaction)}>
               <PenBoxIcon size={24} />
             </button>
             <button onClick={() => handleDelete(transaction)}>

@@ -1,28 +1,43 @@
 import { IndianRupee } from "lucide-react";
-import { useEffect, useState } from "react";
+import { nanoid } from "nanoid";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Error from "../components/common/Error";
-import { addTransaction } from "../features/transactionSlice";
+import {
+  addTransaction,
+  updateTransaction,
+  editTransaction,
+} from "../features/transactionSlice";
 import { getUserName } from "../helpers/getUserName";
-import { useNavigate } from "react-router";
-import { nanoid } from "nanoid";
 
 const TransactionForm = () => {
+  const selectedEditTransaction = useSelector(
+    (state) => state.allTransactions.editTransaction,
+  );
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.Auth.currentUser);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
     watch,
-  } = useForm();
+  } = useForm({
+    defaultValues: selectedEditTransaction || {},
+  });
+
+  useEffect(() => {
+    if (selectedEditTransaction) {
+      reset(selectedEditTransaction);
+    }
+  }, [selectedEditTransaction, reset]);
 
   const transactionType = watch("transactionType");
-
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.Auth.currentUser);
 
   const navigate = useNavigate();
 
@@ -31,9 +46,14 @@ const TransactionForm = () => {
   );
 
   const onSubmit = (data) => {
-    data.id = nanoid()
-    dispatch(addTransaction(data));
-    toast.success(`${data.transactionType} is successfully added `);
+    if (selectedEditTransaction && selectedEditTransaction.id) {
+      dispatch(updateTransaction({ ...selectedEditTransaction, ...data }));
+      toast.success(`${data.transactionType} successfully updated`);
+    } else {
+      data.id = nanoid();
+      dispatch(addTransaction(data));
+      toast.success(`${data.transactionType} is successfully added `);
+    }
     reset();
     navigate("/dashboard");
   };
@@ -49,6 +69,11 @@ const TransactionForm = () => {
     }
   }, [allTransaction, username]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(editTransaction({}));
+    };
+  }, [dispatch]);
   return (
     <>
       <ToastContainer />
@@ -57,7 +82,7 @@ const TransactionForm = () => {
         className="max-w-md w-full mx-auto p-6 bg-white rounded-xl shadow-sm border border-gray-100"
       >
         <h2 className="text-xl font-semibold mb-6 text-gray-800">
-          Add New Transaction
+          {selectedEditTransaction?.id ? "Edit Transaction" : "Add New Transaction"}
         </h2>
 
         <div className="mb-6">
@@ -218,7 +243,7 @@ const TransactionForm = () => {
           type="submit"
           className="w-full bg-slate-800 text-white font-medium py-2.5 px-4 rounded-lg hover:bg-slate-900 transition-colors active:scale-[0.98]"
         >
-          Add Transaction
+          {selectedEditTransaction?.id ? "Update Transaction" : "Add Transaction"}
         </button>
       </form>
     </>

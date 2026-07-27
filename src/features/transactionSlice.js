@@ -23,11 +23,15 @@ const transactionSlice = createSlice({
      localStorage.setItem(`transactions_${username}`,JSON.stringify(state.transactions))
     },
     editTransaction :(state,action)=>{
-      
+      state.editTransaction = action.payload
+    },
+    updateTransaction :(state,action)=>{
+      state.transactions = state.transactions.map((t) => t.id === action.payload.id ? action.payload : t);
+      state.editTransaction = {};
     }
   },
 });
 
-export const { addTransaction ,deleteTransaction} = transactionSlice.actions;
+export const { addTransaction ,deleteTransaction,editTransaction,updateTransaction} = transactionSlice.actions;
 
 export default transactionSlice.reducer;

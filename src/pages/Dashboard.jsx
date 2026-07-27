@@ -1,13 +1,18 @@
-import { ArrowBigDown, ArrowBigDownDash, ArrowBigUp, ArrowBigUpDash, ArrowUpRightIcon, ArrowUpWideNarrow, Banknote, Move, TerminalSquare, TrashIcon } from "lucide-react";
+import { ArrowBigDownDash, ArrowBigUpDash, Banknote, History } from "lucide-react";
+import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import Card from "../components/Card";
 import Strip from "../components/Strip";
+import {
+  deleteTransaction,
+  editTransaction,
+} from "../features/transactionSlice";
 import { getAmount } from "../helpers/getAmount";
-import { deleteTransaction } from "../features/transactionSlice";
-import { nanoid } from "nanoid";
-import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const allTransaction = useSelector(
     (state) => state.allTransactions.transactions,
@@ -15,23 +20,37 @@ const Dashboard = () => {
   const [income, expense, balance] = getAmount(allTransaction);
 
   const handleDelete = (transaction) => {
-   dispatch(deleteTransaction(transaction))
-   toast.success('transaction deleted')
+    dispatch(deleteTransaction(transaction));
+    toast.success("transaction deleted");
+  };
+
+  // let e = useSelector((state) => state.allTransactions.editTransaction);
+  const handileEdit = (transaction) => {
+    dispatch(editTransaction(transaction));
+    navigate("/transaction-from");
   };
 
   return (
     <>
-    <ToastContainer/>
+      <ToastContainer />
       <div className="h-full ">
         <div className="p-4 flex flex-col gap-4">
           <div className="flex items-center justify-around gap-4">
             <Card cardName={"balance"} amount={balance} icon={<Banknote />} />
-            <Card cardName={"expense"} amount={expense} icon={<ArrowBigDownDash />} />
-            <Card cardName={"income"} amount={income} icon={<ArrowBigUpDash />} />
+            <Card
+              cardName={"expense"}
+              amount={expense}
+              icon={<ArrowBigDownDash />}
+            />
+            <Card
+              cardName={"income"}
+              amount={income}
+              icon={<ArrowBigUpDash />}
+            />
             <Card
               cardName={"total transaction"}
               amount={allTransaction.length}
-              icon={<></>}
+              icon={<History />}
             />
           </div>
 
@@ -43,6 +62,7 @@ const Dashboard = () => {
                   transaction={transaction}
                   key={nanoid()}
                   handleDelete={handleDelete}
+                  handileEdit={handileEdit}
                 />
               ))}
             </div>
