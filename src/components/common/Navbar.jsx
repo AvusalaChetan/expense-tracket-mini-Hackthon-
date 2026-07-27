@@ -28,7 +28,7 @@ const Navbar = ({ isOpen, setIsOpen }) => {
     <aside
       className={`
         fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-64  bg-white border-r shadow-lg transform transition-transform duration-300 ease-in-out
-        lg:translate-x-0  lg:static  lg:h-full  lg:w-64  lg:shadow-none  lg:flex-shrink-0
+        lg:translate-x-0  lg:static  lg:h-full  lg:w-64  lg:shadow-none  
         ${isOpen ? "translate-x-0" : "-translate-x-full"}
         flex  flex-col justify-between items-start p-4
       `}

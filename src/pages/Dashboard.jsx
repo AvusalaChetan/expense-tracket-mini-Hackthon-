@@ -1,4 +1,4 @@
-import { Banknote } from "lucide-react";
+import { ArrowBigDown, ArrowBigDownDash, ArrowBigUp, ArrowBigUpDash, ArrowUpRightIcon, ArrowUpWideNarrow, Banknote, Move, TerminalSquare, TrashIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../components/Card";
 import Strip from "../components/Strip";
@@ -26,12 +26,12 @@ const Dashboard = () => {
         <div className="p-4 flex flex-col gap-4">
           <div className="flex items-center justify-around gap-4">
             <Card cardName={"balance"} amount={balance} icon={<Banknote />} />
-            <Card cardName={"expense"} amount={expense} icon={<Banknote />} />
-            <Card cardName={"income"} amount={income} icon={<Banknote />} />
+            <Card cardName={"expense"} amount={expense} icon={<ArrowBigDownDash />} />
+            <Card cardName={"income"} amount={income} icon={<ArrowBigUpDash />} />
             <Card
               cardName={"total transaction"}
               amount={allTransaction.length}
-              icon={<Banknote />}
+              icon={<></>}
             />
           </div>
 

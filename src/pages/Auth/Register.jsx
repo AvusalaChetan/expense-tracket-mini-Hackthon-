@@ -43,7 +43,7 @@ const Register = () => {
   const labelStyle = "block text-sm font-medium text-gray-700 mb-1";
 
   return (
-    <div>
+    <div className="h-full  flex items-center justify-center">
       <ToastContainer />
       <form
         onSubmit={handleSubmit(onSubmit)}

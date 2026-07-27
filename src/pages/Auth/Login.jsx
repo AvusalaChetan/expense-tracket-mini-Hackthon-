@@ -42,7 +42,7 @@ const Login = () => {
   }, [currentUser]);
 
   return (
-    <div>
+    <div className="w-full h-full flex items-center justify-center">
       <ToastContainer />
 
       <form

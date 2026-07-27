@@ -5,7 +5,7 @@ import Footer from "../components/common/Footer";
 const AuthLayout = () => {
   return (
     <div className="w-screen h-screen">
-      <div className="h-[80%] p-4">
+      <div className="h-[90%] p-4  ">
         <Outlet />
       </div>
       <Footer />
